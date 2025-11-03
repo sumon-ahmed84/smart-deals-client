@@ -47,13 +47,38 @@ const { signup, signInwithGoogle } = use(AuthContexts);
     }
   };
 
-  const handleGoogle = async () => {
-    try {
-      await signInwithGoogle();
-      navigate("/");
-    } catch (error) {
-      toast.error(error.message);
-    }
+  const handleGoogle =  () => {
+    signInwithGoogle()
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+        navigate('/');
+        const newUser={
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL
+        };
+        // create user in the database
+        fetch('http://localhost:3000/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newUser)
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    
   };
 
   return (
