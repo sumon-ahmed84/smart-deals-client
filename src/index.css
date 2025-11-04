@@ -9,5 +9,15 @@
 }
 
    a.active{
-  @apply  font-semibold text-green-500;
+  @apply  font-semibold text-purple-700;
+}
+
+.btn-primary {
+  background: linear-gradient(125deg, #632EE3 5.68%, #9F62F2 88.38%) !important;
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
 }
